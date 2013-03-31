@@ -1,0 +1,7 @@
+
+<% provide(:title, 'Home') %>
+			<h1>Rental Home</h1>
+    <p>
+      This is the home page for the Rental Home.
+    </p>
+

@@ -1,0 +1,16 @@
+
+
+<% provide(:title, 'About Us') %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rental Home | <%= yield(:title) %></title>
+  </head>
+  <body>
+    <h1>About Us</h1>
+    <p>
+      The Rental Home is the application the provides access to the Rental Properties.
+    </p>
+  </body>
+</html>
+

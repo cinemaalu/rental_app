@@ -1,0 +1,15 @@
+
+<% provide(:title, 'Help') %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rental Home | <%= yield(:title) %></title>
+  </head>
+  <body>
+    <h1>Help</h1>
+    <p>
+      Get help on the Rental Home.
+    </p>
+  </body>
+</html>
+
