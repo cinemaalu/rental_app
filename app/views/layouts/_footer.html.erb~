@@ -1,0 +1,12 @@
+<footer class="footer">
+  <small>
+    Rental App by <a href="mailto:rentalapp@live.com">S</a>
+  </small>
+  <nav>
+    <ul>
+      <li><%= link_to "About",   '#' %></li>
+      <li><%= link_to "Contact", '#' %></li>
+    </ul>
+  </nav>
+</footer>
+
