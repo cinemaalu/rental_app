@@ -15,7 +15,7 @@ FactoryGirl.define do
 		city 									"Bothell"
 		state 								"WA" 
 		country 							"USA"
-		uri 									"http://powerful-basin-7526.herokuapp.com/"
+		uri 									"http://rental.herokuapp.com/"
   end
 end
 

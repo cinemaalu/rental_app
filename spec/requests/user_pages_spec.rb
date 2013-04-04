@@ -30,12 +30,34 @@ describe "User pages" do
       it "should not create a user" do
         expect { click_button submit }.not_to change(User, :count)
       end
+    end
+
+    describe "with valid information" do
+      before do
+        fill_in "First Name",   with: "Example"
+        fill_in "Middle Name",	with: "E"
+        fill_in "Last Name",   	with: "User"
+        fill_in "Email",        with: "user@example.com"
+        fill_in "Password",     with: "foobar"
+        fill_in "Confirmation", with: "foobar"
+        fill_in "Home Phone", 	with: "4250000000"
+        fill_in "Mobile Phone",	with: "4250000000"
+        fill_in "Street",				with: "148th st se"
+        fill_in "City", 				with: "Bellevue"
+        fill_in "State", 				with: "WA"
+        fill_in "Country",			with: "USA"
+        fill_in "URI",					with: "http://powerful-basin-7526.herokuapp.com/"
+      end
+
+      it "should create a user" do
+        expect { click_button submit }.to change(User, :count).by(1)
+      end
 
       describe "after submission" do
         before { click_button submit }
 
-        it { should have_selector('title', text: 'Sign up') }
-        it { should have_content('error') }
+        it { should_not have_selector('title', text: 'Sign up') }
+        it { should_not have_content('error') }
       end
 
       describe "after saving the user" do
@@ -44,29 +66,7 @@ describe "User pages" do
 
         it { should have_selector('title', text: user.first_name+' '+user.last_name) }
         it { should have_selector('div.alert.alert-success', text: 'Welcome') }
-      end
-    end
-
-    describe "with valid information" do
-      before do
-        fill_in "First_Name",   with: "Example User"
-        fill_in "Middle_Name",	with: "Example User"
-        fill_in "Last_Name",   	with: "Example User"
-        fill_in "Email",        with: "cinemaalu@live.com"
-        fill_in "Password",     with: "foobar"
-        fill_in "Confirmation", with: "foobar"
-        fill_in "Home", 				with: "4250000000"
-        fill_in "Moblie",				with: "4250000000"
-        fill_in "Office",				with: "4250000000"
-        fill_in "Street",				with: "yyyyyy"
-        fill_in "city", 				with: "yyyyyy"
-        fill_in "State", 				with: "yyyyyy"
-        fill_in "Country",			with: "yyyyyy"
-        fill_in "URI",					with: "http://powerful-basin-7526.herokuapp.com/"
-      end
-
-      it "should create a user" do
-        expect { click_button submit }.to change(User, :count).by(1)
+        it { should have_link('Sign out') }
       end
     end
   end

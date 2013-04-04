@@ -26,6 +26,7 @@ attr_accessible :first_name, :last_name, :mi_name, :phone1, :phone2, :phone3, :e
 	has_secure_password
 
 	before_save { |user| user.email = email.downcase }
+  before_save :create_remember_token
 
 	validates :first_name, presence: true, length: { maximum: 50 }
 	validates :last_name, presence: true, length: { maximum: 50 }
@@ -40,4 +41,10 @@ attr_accessible :first_name, :last_name, :mi_name, :phone1, :phone2, :phone3, :e
 	validates :city, presence: true, length: { maximum: 50 }
 	validates :state, presence: true, length: { maximum: 50 }
 	validates :country, presence: true, length: { maximum: 50 }
+
+  private
+
+    def create_remember_token
+      self.remember_token = SecureRandom.urlsafe_base64
+    end
 end

@@ -1,15 +1,15 @@
 <% provide(:title, 'Sign up') %>
-<h1>Sign up</h1>
 
 <div class="row">
-  <div class="span6 offset3">
+  <div class="span6 offset1">
+		<h1>Sign up</h1>
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages' %>
 
       <%= f.label :first_name, "First Name" %>
       <%= f.text_field :first_name %>
 
-      <%= f.label :middle_name, "Middle Name" %>
+      <%= f.label :mi_name, "Middle Name" %>
       <%= f.text_field :mi_name %>
 
       <%= f.label :last_name, "Last Name" %>
@@ -24,13 +24,13 @@
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation %>
 
-      <%= f.label :phone1, "Home" %>
+      <%= f.label :phone1, "Home Phone" %>
       <%= f.text_field :phone1 %>
 
-      <%= f.label :phone2, "Mobile" %>
+      <%= f.label :phone2, "Mobile Phone" %>
       <%= f.text_field :phone2 %>
 
-      <%= f.label :Phone3, "Office" %>
+      <%= f.label :Phone3, "Office Phone" %>
       <%= f.text_field :phone3 %>
 
       <%= f.label :addr1, "Street" %>
@@ -51,7 +51,7 @@
       <%= f.label :uri, "URI" %>
       <%= f.text_field :uri %>
 
-      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+      <%= f.submit "Create my account", class: "btn btn-small btn-primary" %>
     <% end %>
   </div>
 </div>

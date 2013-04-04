@@ -35,6 +35,7 @@ describe User do
 	it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
+  it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:phone1) }
   it { should respond_to(:phone2) }
@@ -151,5 +152,10 @@ describe User do
   describe "when contry is not present" do
     before { @user.country = " " }
     it { should_not be_valid }
+  end
+
+  describe "remember token" do
+    before { @user.save }
+    its(:remember_token) { should_not be_blank }
   end
 end
