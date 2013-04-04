@@ -46,7 +46,20 @@ describe User do
   it { should respond_to(:state) }
   it { should respond_to(:country) }
   it { should respond_to(:uri) }
+  it { should respond_to(:admin) }
+  it { should respond_to(:authenticate) }
+
   it { should be_valid }
+  it { should_not be_admin }
+
+  describe "with admin attribute set to 'true'" do
+    before do
+      @user.save!
+      @user.toggle!(:admin)
+    end
+
+    it { should be_admin }
+  end
 
   describe "when first name is not present" do
     before { @user.first_name = " " }
