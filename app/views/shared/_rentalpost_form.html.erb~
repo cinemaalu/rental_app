@@ -1,0 +1,18 @@
+
+<%= form_for(@rentalpost) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.select :rentaltype, [ 'Home', 'Apartment', 'Room', 'Other' ], :prompt => 'Select One' %>
+    <%= f.text_area :rental_desc, placeholder: "Compose new rentalpost..." %>
+    <%= f.select :status, [ 'Active', 'Pending', 'Hold', 'Other' ], :prompt => 'Select Status' %>
+    <%= f.contactpref :contactpref, [ 'Phone', 'Email' ], :prompt => 'Select Contact Preference' %>
+    <%= f.text_field :price, placeholder: 'Monthly Price..' %>
+    <%= f.text_field :addrl1, placeholder: 'Address..Street/House #' %>
+    <%= f.text_field :addrl2, placeholder: 'Apt #..' %>
+    <%= f.text_field :city, placeholder: 'City..' %>
+    <%= f.text_field :state, placeholder: 'State..' %>
+    <%= f.select :country, [ 'USA'] %>
+  </div>
+  <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+<% end %>
+

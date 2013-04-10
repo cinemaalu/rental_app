@@ -21,6 +21,19 @@ FactoryGirl.define do
       admin true
     end
   end
+
+  factory :rentalpost do
+		rentaltype 			"Home"
+		rental_desc			"Beautiful Home"
+		price 					"1850"
+		status 					"T"
+		addrl1 					"2422 194th st se"
+		city 						"Bothell"
+		state 					"WA" 
+		country 				"USA"
+		contactpref 		"T"    
+		user
+  end
 end
 
 

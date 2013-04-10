@@ -1,10 +1,15 @@
 class StaticPagesController < ApplicationController
+
   def home
+    @rentalpost = current_user.rentalposts.build if signed_in?
   end
 
   def help
   end
 
   def about
+  end
+
+  def contact
   end
 end

@@ -16,6 +16,22 @@ describe "Static pages" do
 
     it_should_behave_like "all static pages"
     it { should_not have_selector 'title', text: '| Home' }
+
+    describe "for signed-in users" do
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        FactoryGirl.create(:rentalpost, user: user, rentaltype: "Home", rental_desc:	"Beautiful Home",	price: "1850", status: "T",		addrl1:	"2422 194th st se", city:	"Bothell", state:	"WA" , country:	"USA",	contactpref: "T")
+        FactoryGirl.create(:rentalpost, user: user, rentaltype: "Home", rental_desc:	"Beautiful Home",	price: "1850", status: "T",		addrl1:	"2422 194th st se", city:	"Bothell", state:	"WA" , country:	"USA",	contactpref: "T")
+        sign_in user
+        visit root_path
+      end
+
+      it "should render the user's feed" do
+        user.feed.each do |item|
+          page.should have_selector("li##{item.id}", text: item.rental_desc)
+        end
+      end
+    end
   end
 
 

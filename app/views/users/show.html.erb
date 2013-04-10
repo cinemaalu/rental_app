@@ -8,8 +8,18 @@
         <%= @user.first_name+' '+ @user.last_name %>
         <%= @user.email %>
       </h1>
+    <%= link_to "Post New Rental!", root_path, class: "btn btn-small btn-primary" %>
     </section>
   </aside>
+  <div class="span8">
+    <% if @user.rentalposts.any? %>
+      <h3>Rental Posts (<%= @user.rentalposts.count %>)</h3>
+      <ol class="rentalposts">
+        <%= render @rentalposts %>
+      </ol>
+      <%= will_paginate @rentalposts %>
+    <% end %>
+  </div>
 </div>
 <!---
 <%= @user.first_name %>, <%= @user.mi_name %>, <%= @user.last_name %>, <%= @user.email %>, <%= @user.phone1 %>, <%= @user.phone2 %>, <%= @user.phone3 %>, <%= @user.addr1 %>, <%= @user.addr2 %>, <%= @user.city %>, <%= @user.state %>, <%= @user.country %>, <%= @user.uri %>

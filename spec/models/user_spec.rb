@@ -24,7 +24,23 @@ require 'spec_helper'
 
 describe User do
 
-  before { @user = User.new(first_name: "Userf", mi_name: "mi", last_name: "Userl", email: "user@example.com", password: "123sun", password_confirmation: "123sun", phone1: "4250000000", phone2: "4250000000", phone3: "4250000000", addr1: "addr1", addr2: "addr2", city: "Bothell", state: "WA", country: "USA", uri: "http://powerful-basin-7526.herokuapp.com/") }
+  before do
+	 @user = User.new(first_name: 		"Userf", 
+									mi_name: 				"mi", 
+									last_name: 			"Userl", 
+									email: 					"user@example.com", 
+									password: 			"123sun", 
+									password_confirmation: "123sun", 
+									phone1: 				"4250000000", 
+									phone2: 				"4250000000", 
+									phone3: 				"4250000000", 
+									addr1: 					"addr1", 
+									addr2: 					"addr2", 
+									city: 					"Bothell", 
+									state: 					"WA", 
+									country: 				"USA", 
+									uri: 						"http://rental.heroku.com/") 
+	end
 
   subject { @user }
 
@@ -37,6 +53,8 @@ describe User do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:rentalposts) }
+  it { should respond_to(:feed) }
   it { should respond_to(:phone1) }
   it { should respond_to(:phone2) }
   it { should respond_to(:phone3) }
@@ -47,7 +65,6 @@ describe User do
   it { should respond_to(:country) }
   it { should respond_to(:uri) }
   it { should respond_to(:admin) }
-  it { should respond_to(:authenticate) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -170,5 +187,40 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+  describe "rentalpost associations" do
+
+    before { @user.save }
+    let!(:older_rentalpost) do 
+      FactoryGirl.create(:rentalpost, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_rentalpost) do
+      FactoryGirl.create(:rentalpost, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should destroy associated rentalposts" do
+      rentalposts = @user.rentalposts.dup
+      @user.destroy
+      rentalposts.should_not be_empty
+      rentalposts.each do |rentalpost|
+        Rentalpost.find_by_id(rentalpost.id).should be_nil
+      end
+    end
+
+
+    it "should have the right rentalposts in the right order" do
+      @user.rentalposts.should == [newer_rentalpost, older_rentalpost]
+    end
+
+    describe "status" do
+      let(:unfollowed_post) do
+        FactoryGirl.create(:rentalpost, user: FactoryGirl.create(:user))
+      end
+
+      its(:feed) { should include(newer_rentalpost) }
+      its(:feed) { should include(older_rentalpost) }
+      its(:feed) { should_not include(unfollowed_post) }
+    end
   end
 end

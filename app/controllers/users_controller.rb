@@ -5,8 +5,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-  end
-
+    @rentalposts = @user.rentalposts.paginate(page: params[:page], :per_page => 10)
+	end
+ 
   def new
 		 @user = User.new
   end
@@ -23,7 +24,7 @@ class UsersController < ApplicationController
   end
 
 	def index
-    @users = User.paginate(page: params[:page])
+    @users = User.paginate(page: params[:page], :per_page => 10)
 	end
 
   def destroy
@@ -47,8 +48,15 @@ class UsersController < ApplicationController
 
   private
 
+#    def signed_in_user
+#      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+#    end
+
     def signed_in_user
-      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+      unless signed_in?
+        store_location
+        redirect_to signin_url, notice: "Please sign in."
+      end
     end
 
     def correct_user
@@ -59,4 +67,5 @@ class UsersController < ApplicationController
     def admin_user
       redirect_to(root_path) unless current_user.admin?
     end
+
 end

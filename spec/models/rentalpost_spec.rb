@@ -1,0 +1,46 @@
+require 'spec_helper'
+
+describe Rentalpost do
+
+  let(:user) { FactoryGirl.create(:user) }
+  before { @rentalpost = user.rentalposts.build(rentaltype: "Home", rental_desc:"Beautiful Home", price:"1850", status:"Active", addrl1:"2422 194th st se", city:"Bothell", state:"WA", country:"USA", contactpref:"Phone") }
+
+  subject { @rentalpost }
+
+  it { should respond_to(:rentaltype) }
+  it { should respond_to(:rental_desc) }
+  it { should respond_to(:status) }
+  it { should respond_to(:addrl1) }
+  it { should respond_to(:city) }
+  it { should respond_to(:state) }
+  it { should respond_to(:country) }
+  it { should respond_to(:contactpref) }
+  it { should respond_to(:user_id) }
+  it { should respond_to(:user) }
+	its(:user) { should == user }
+
+  it { should be_valid }
+
+  describe "accessible attributes" do
+    it "should not allow access to user_id" do
+      expect do
+        Rentalpost.new(user_id: user.id)
+      end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+    end    
+  end
+
+  describe "when user_id is not present" do
+    before { @rentalpost.user_id = nil }
+    it { should_not be_valid }
+  end
+
+  describe "with blank content" do
+    before { @rentalpost.rental_desc = " " }
+    it { should_not be_valid }
+  end
+
+  describe "with content that is too long" do
+    before { @rentalpost.rental_desc = "a" * 256 }
+    it { should_not be_valid }
+  end
+end

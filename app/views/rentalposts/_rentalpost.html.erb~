@@ -1,0 +1,12 @@
+<li>
+  <span class="content"><%= rentalpost.rental_desc %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(rentalpost.created_at) %> ago.
+  </span>
+  <% if current_user?(rentalpost.user) %>
+    <%= link_to "delete", rentalpost, method: :delete,
+                                     data: { confirm: "You sure?" },
+                                     title: rentalpost.content %>
+  <% end %>
+</li>
+

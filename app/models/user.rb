@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
 			
 attr_accessible :first_name, :last_name, :mi_name, :phone1, :phone2, :phone3, :email, :password, :password_confirmation, :addr1, :addr2, :city, :country, :state, :uri
 	has_secure_password
+	has_many :rentalposts, dependent: :destroy
 
 	before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
@@ -41,6 +42,11 @@ attr_accessible :first_name, :last_name, :mi_name, :phone1, :phone2, :phone3, :e
 	validates :city, presence: true, length: { maximum: 50 }
 	validates :state, presence: true, length: { maximum: 50 }
 	validates :country, presence: true, length: { maximum: 50 }
+
+  def feed
+    # This is preliminary. See "Following users" for the full implementation.
+    Rentalpost.where("user_id = ?", id)
+  end
 
   private
 

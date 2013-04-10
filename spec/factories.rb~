@@ -16,6 +16,23 @@ FactoryGirl.define do
 		state 								"WA" 
 		country 							"USA"
 		uri 									"http://rental.herokuapp.com/"
+
+    factory :admin do
+      admin true
+    end
+  end
+
+  factory :rentalpost do
+		rentaltype 			"Home"
+		rental_desc			"Beautiful Home"
+		price 					"1850"
+		status 					"T"
+		addl1 					"2422 194th st se"
+		city 						"Bothell"
+		state 					"WA" 
+		country 				"USA"
+		contactpref 		"T"    
+		user
   end
 end
 
