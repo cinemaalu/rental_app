@@ -4,16 +4,18 @@
     <span class="user">
       <%= link_to feed_item.user.first_name, feed_item.user %>
     </span>
-    <span class="content"><%= feed_item.rentaltype %> </br>
-    											<%= feed_item.rental_desc %></br>
-													<%= feed_item.status %></br>
-													<%= feed_item.price %></br>
-													<%= feed_item.contactpref %>
+  <div class="row">
+    <span class="content">
+				Property Type : <%= feed_item.rentaltype %> </br>
+    		Description : <%= feed_item.rental_desc %></br>
+				Status :			 <%= feed_item.status %></br>
+				Price :			 <%= feed_item.price %></br>
+				Contact By :	 <%= feed_item.contactpref %>
 		</span>
     <span class="timestamp">
       Posted <%= time_ago_in_words(feed_item.created_at) %> ago.
     </span>
-
+	</div>
   <% if current_user?(feed_item.user) %>
     <%= link_to "delete", feed_item, method: :delete,
                                      data: { confirm: "You sure?" },
